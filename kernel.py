@@ -6,7 +6,7 @@ def KMatrix(tau, beta, omega):
     import numpy as np
     ntau = len(tau)
     Nomega = len(omega)
-    matrix = np.zeros((ntau, ntau))
+    matrix = np.zeros((ntau, Nomega))
     domega = omega[1] - omega[0]
     for nt in range(ntau):
         for nw in range(Nomega):

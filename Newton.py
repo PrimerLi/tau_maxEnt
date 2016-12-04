@@ -16,14 +16,16 @@ def Newton(alpha, G, A_initial, tau, omega, beta, C_inv):
     Nomega = len(A_initial)
     A_updated = np.zeros(Nomega)
     iterationMax = 100
-    eps = 0.008
+    eps = 0.0001
     counter = 0
     while (True):
         counter = counter + 1
         if (counter > iterationMax):
             break
-        A_updated = A_initial - numpy.linalg.inv(J.J(alpha, G, A_initial, tau, omega, beta, C_inv)).dot(f(alpha, G, A_initial, tau, omega, beta, C_inv))
+        J_inv = numpy.linalg.inv(J.J(alpha, G, A_initial, tau, omega, beta, C_inv))
+        A_updated = A_initial - J_inv.dot(f.f(alpha, G, A_initial, tau, omega, beta, C_inv))
         diff = norm(A_updated - A_initial)
+        print counter, diff
         if (diff < eps):
             break
         A_initial = A_updated
