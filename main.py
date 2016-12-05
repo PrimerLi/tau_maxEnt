@@ -2,9 +2,12 @@ import probability
 import chi
 import Q
 import Newton
-import test
 import probability
 import printFile
+
+def gauss(x, mu, sigma):
+    import numpy as np
+    return 1.0/np.sqrt(2*np.pi*sigma**2)*np.exp(-(x-mu)**2/(2.0*sigma**2))
 
 def main():
     import sys
@@ -34,7 +37,7 @@ def main():
         CM[row-1, col-1] = float(a[2])
     ifile.close()
     for i in range(ntau):
-        CM[i, i] = 0.01**2
+        CM[i, i] = 0.007**2
     C_inv = numpy.linalg.inv(CM)
 
     if (os.path.exists("A_initial.txt")):
@@ -57,16 +60,16 @@ def main():
         A_initial = np.zeros(Nomega)
         for nw in range(Nomega):
             omega[nw] = lower + nw*domega
-            A_initial[nw] = test.gauss(omega[nw], 0, 1)
-        test.printFile(omega, A_initial, "A_initial.txt")
+            A_initial[nw] = gauss(omega[nw], 0, 1)
+        printFile.printFile(omega, A_initial, "A_initial.txt")
 
     Nomega = len(omega)
     beta = tau[len(tau)-1]
 
-    Nalpha = 40
+    Nalpha = 30
     alpha = np.zeros(Nalpha)
     for i in range(len(alpha)):
-        alpha[i] = 0.01*np.exp(-i*0.085)
+        alpha[i] = 0.02*np.exp(-i*0.07)
     ofile = open("alpha.txt", "a")
     for i in range(len(alpha)):
         ofile.write(str(alpha[i]) + "\n")
