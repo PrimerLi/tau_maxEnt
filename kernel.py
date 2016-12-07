@@ -10,5 +10,5 @@ def KMatrix(tau, beta, omega):
     domega = omega[1] - omega[0]
     for nt in range(ntau):
         for nw in range(Nomega):
-            matrix[nt, nw] = K(tau[nt], beta, omega[nw])*domega/(2*np.pi)
+            matrix[nt, nw] = K(tau[nt], beta, omega[nw])*domega
     return matrix
